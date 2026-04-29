@@ -1,5 +1,6 @@
 package cl.oscar.pacientes.service;
 
+import cl.oscar.pacientes.dto.PacienteRequestDTO;
 import cl.oscar.pacientes.dto.PacienteResponseDTO;
 import cl.oscar.pacientes.model.Paciente;
 import cl.oscar.pacientes.repository.PacienteRepository;
@@ -28,8 +29,30 @@ public class PacienteService {
         return dto;
     }
             
-    public Paciente guardar(Paciente paciente){
-        return pacienteRepository.save(paciente);
+    public PacienteResponseDTO guardar(PacienteRequestDTO pacienteRequestDTO){
+
+        //Mapeamos DTO de entrada a Entidad
+        Paciente paciente = new Paciente();
+        paciente.setNombre(pacienteRequestDTO.getNombre());
+        paciente.setDocumento(pacienteRequestDTO.getDocumento());
+        paciente.setFechaNacimiento(pacienteRequestDTO.getFechaNacimiento());
+
+        //Guardamos la entidad
+        Paciente pacienteGuardado = pacienteRepository.save(paciente);
+
+        //Retornamos DTO de respuesta
+        return mapToResponseDTO(pacienteGuardado);
+       
+    }
+
+    private PacienteResponseDTO mapToResponseDTO(Paciente paciente){
+        PacienteResponseDTO dto = new PacienteResponseDTO();
+        dto.setId(paciente.getId());
+        dto.setNombre(paciente.getNombre());
+        dto.setDocumento(paciente.getDocumento());
+        dto.setFechaNacimiento(paciente.getFechaNacimiento());
+
+        return dto;
     }
 
 }

@@ -1,6 +1,7 @@
 package cl.oscar.pacientes.controller;
 
 import cl.oscar.pacientes.dto.PacienteResponseDTO;
+import cl.oscar.pacientes.dto.PacienteRequestDTO;
 import cl.oscar.pacientes.model.Paciente;
 import cl.oscar.pacientes.service.PacienteService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.http.HttpStatus;
+
 
 @RestController
 @RequestMapping("/api/v1/pacientes")
@@ -26,8 +31,9 @@ public class PacienteController {
     }
 
     @PostMapping
-    public Paciente guardarPaciente(@RequestBody Paciente paciente){
-        return pacienteService.guardar(paciente);
+    @ResponseStatus(HttpStatus.CREATED)
+    public PacienteResponseDTO guardarPaciente(@RequestBody PacienteRequestDTO pacienteResponseDTO){
+        return pacienteService.guardar(pacienteResponseDTO);
     }
 
 }
