@@ -6,5 +6,5 @@ import cl.oscar.pacientes.model.Paciente;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente,Long>{
-
+    Paciente getPacienteByDocumento(Long id);
 }

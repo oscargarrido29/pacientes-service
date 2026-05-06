@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
 
+
 @RestController
 @RequestMapping("/api/v1/pacientes")
 @RequiredArgsConstructor
@@ -32,8 +33,8 @@ public class PacienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PacienteResponseDTO guardarPaciente(@RequestBody PacienteRequestDTO pacienteResponseDTO){
-        return pacienteService.guardar(pacienteResponseDTO);
+    public PacienteResponseDTO guardarPaciente(@RequestBody PacienteRequestDTO pacienteRequestDTO){
+        return pacienteService.guardar(pacienteRequestDTO);
     }
 
 }
