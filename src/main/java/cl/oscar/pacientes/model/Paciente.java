@@ -1,9 +1,10 @@
 package cl.oscar.pacientes.model;
 
-import jakarta.persistence.*;
+import jakarta.validation.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
 
@@ -16,8 +17,8 @@ public class Paciente {
     private Long id;
 
     //1. Mejoras en el nombre
-    @NotBlank(message = "No se permite que el nombre este vacio")
-    @Size(min=2, max=100, message = "Debe tener entre 2 a 100 caracteres")
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(min=2, max= 100, message = "Debe tener entre 2 a 100 caracteres")
     @Column(nullable = false,length = 100)
     private String nombre;
 
@@ -26,7 +27,6 @@ public class Paciente {
     private String documento;
 
     @Past(message = "La fecha de nacimiento debe ser una fecha en el pasado")
-    @Column(name ="fecha_nacimiento",nullable = false)
+    @Column(name="fecha_nacimiento",nullable = false)
     private LocalDate fechaNacimiento;
-
 }

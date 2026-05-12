@@ -1,40 +1,27 @@
 package cl.oscar.pacientes.controller;
 
 import cl.oscar.pacientes.dto.PacienteResponseDTO;
-import cl.oscar.pacientes.dto.PacienteRequestDTO;
 import cl.oscar.pacientes.model.Paciente;
 import cl.oscar.pacientes.service.PacienteService;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.http.HttpStatus;
-
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/pacientes")
+@RequestMapping("/api/pacientes")
 @RequiredArgsConstructor
 public class PacienteController {
 
     private final PacienteService pacienteService;
 
-    //Metodo para usae el feig Cliente desde citas
+    // Este es el metodo que usa Feign Client desde citas
     @GetMapping("/{id}")
-    public PacienteResponseDTO obtenerPaciente(@PathVariable Long id){
+    public PacienteResponseDTO obtenerPaciente(@PathVariable Long id) {
         return pacienteService.obtenerPorId(id);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public PacienteResponseDTO guardarPaciente(@RequestBody PacienteRequestDTO pacienteRequestDTO){
-        return pacienteService.guardar(pacienteRequestDTO);
+    public PacienteResponseDTO guardarPaciente(@RequestBody Paciente paciente) {
+        return pacienteService.guardar(paciente);
     }
 
 }
